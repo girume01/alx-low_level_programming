@@ -22,6 +22,7 @@ int main(void)
 			putchar((code2 / 10) + '0');
 			putchar((code2 % 10) + '0');
 			if (code1 == 98 && code2 == 99)
+				continue;
 			putchar(',');
 			putchar(' ');
 		}
