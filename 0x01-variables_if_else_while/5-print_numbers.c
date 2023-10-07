@@ -1,9 +1,21 @@
 #include <stdio.h>
 
 /**
- * main - lowercase and uppercase
+ * main - main function of this program
  *
  * Return: always 0
  */
 
-i
+int main(void)
+{
+	int z;
+
+	for (z = 0 ; z < 10 ; z++)
+	{
+
+		printf("%d", z);
+	}
+	printf("\n");
+
+	return (0);
+}
