@@ -9,22 +9,25 @@
 
 void times_table(void)
 {
-	int result, i;
+	int result, i, j;
 
 	for (i = 0; i <= 9; i++)
 	{
-		result = i * 9;
-		_putchar('0' + (i / 10));
-		_putchar('0' + (i % 10));
-		_putchar(' ');
-		_putchar('x');
-		_putchar(' ');
-		_putchar('9');
-		_putchar(' ');
-		_putchar('=');
-		_putchar(' ');
-		_putchar('0' + (result / 10));
-		_putchar('0' + (result % 10));
-		_putchar('\n');
+		for (j = 0; j <= 9; j++)
+		{
+			result = i * j;
+
+		if (j != 0)
+		{
+			_putchar(',');
+			_putchar(' ');
+		}
+		if (result < 10)
+			_putchar(' ');
+		else
+			_putchar(result / 10 + '0');
+		_putchar(result % 10 + '0');
+	}
+	_putchar('\n');
 	}
 }
