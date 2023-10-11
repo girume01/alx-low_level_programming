@@ -22,7 +22,6 @@ int main(void)
 		if (i == 49)
 		{
 			printf("%ld\n", fibonacci[i]);
-			printf("\n");
 		}
 		else
 		{
