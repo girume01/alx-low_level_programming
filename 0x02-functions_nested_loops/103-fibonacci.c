@@ -1,33 +1,29 @@
 #include <stdio.h>
 /**
- * main - finds and prints the sum of the even valued
+ * main - finds and prints the sum of the even
  *
- * Return: zeo
+ * this program is to find and prints the
+ * sum of the even valued terms followed by
+ * a new line
+ * project 15
+ *
+ * Return: return by zero
  *
  */
 
 int main(void)
 {
-	int limit = 4000000;
+	long int i, x = 1, y = 2, sum = 0, tsum = 0;
 
-	long long int sum = 0;
-
-	int fib1 = 1;
-
-	int fib2 = 2;
-
-	while  (fib2 <= limit)
+	for (i = 0; i < 49; i++)
 	{
-		if (fib2 % 2 == 0)
+		if ((y % 2 == 0) && (y <= 4000000))
 		{
-			sum += fib2;
+			tsum = tsum + y;
 		}
-
-		int next_fib = fib1 + fib2;
-
-		fib1 = fib2;
-		fib2 = next_fib;
+		sum = x + y;
+		x = y;
+		y = sum;
 	}
-	printf("%d: %lld\n", limit, sum);
 	return (0);
 }
