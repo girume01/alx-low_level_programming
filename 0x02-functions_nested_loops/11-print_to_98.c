@@ -1,9 +1,9 @@
 #include "main.h"
 #include <stdio.h>
 /**
- * print_to_98 - print all natural numbers to 98
+ * print_to_98 - print all natural numbers
  *
- * @n: describe starting number
+ * @n: integer starting
  *
  * Return - return 0
  *
@@ -11,39 +11,36 @@
 
 void print_to_98(int n)
 {
-	int i;
-
-	if (n >= 0  && n <= 98)
+	if (n <= 98)
 	{
-		for (i = n; i <= 98; i++)
+		for (; n <= 98; n++)
 		{
-			printf("%d, ", i);
-			if (i != 98)
-				printf(", ");
+			if (n == 98)
+			{
+				printf("%d ", n);
+				printf("\n");
+				break;
+			}
+			else
+			{
+				printf("%d, ", n);
+			}
 		}
-		printf("\n");
 	}
-	else if (n < 0)
+	else
 	{
-		for (i = n; i <= 98; i++)
+		for (; n >= 98; n--)
 		{
-			printf("%d, ", i);
-			if (i != 98)
-				printf(", ");
+			if (n == 98)
+			{
+				printf("%d", n);
+				printf("\n");
+				break;
+			}
+			else
+			{
+				printf("%d, ", n);
+			}
 		}
-		printf("\n");
 	}
-	else if (n > 98)
-	{
-		for (i = n; i >= 98; i--)
-		{
-			printf("%d, ", i);
-			if (i != 98)
-				printf(", ");
-		}
-		printf("\n");
-	}
-	else if (n == 98)
-		printf("%d, ", n);
-	printf("\n");
 }
