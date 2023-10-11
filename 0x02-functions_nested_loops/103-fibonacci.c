@@ -25,5 +25,7 @@ int main(void)
 		x = y;
 		y = sum;
 	}
+	printf("%ld", tsum);
+	printf("\n");
 	return (0);
 }
