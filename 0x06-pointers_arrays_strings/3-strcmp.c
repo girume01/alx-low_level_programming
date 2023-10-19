@@ -1,4 +1,10 @@
 #include "main.h"
+/**
+ * _strcmp - compare the strings
+ * @s1: first string
+ * @s2: second string
+ * Return: zero
+ */
 int _strcmp(char *s1, char *s2)
 {
 int i = 0;
