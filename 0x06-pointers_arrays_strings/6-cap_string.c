@@ -6,27 +6,23 @@
  */
 char *cap_string(char *str)
 {
-	int z = 0;
-	int y = 0;
-	char sign[] = {',', ';', '.', '!', '?', '"', '(', ')', '{', '}', '\t', '\n'};
+	int y;
 
-	while (str[y] != '\0')
-	{
-		if (y == 0 && str[y] >= 'a' && str[y] <= 'z')
-		{
-			str[y] = str[y] - 32;
-		}
-	z = 0;
-	while (sign[z] != '\0')
-	{
-		if (sign[z] == str[y] && (str[y + 1] >= 'a' && str[y + 1] <= 'z'))
-		{
-			str[y + 1] = str[y + 1] - 32;
-		}
-		z++;
-	}
-	y++;
-	}
+	y = 0;
+	do {
+		while (!(str[y] >= 'a' && str[y] <= 'z'))
+			y++;
+
+		if (str[y - 1] == ' ' || str[y - 1] == '\t' ||
+				str[y - 1] == '\n' || str[y - 1] == ',' ||
+				str[y - 1] == ';' || str[y - 1] == '.' ||
+				str[y - 1] == '!' || str[y - 1] == '?' ||
+				str[y - 1] == '"' || str[y - 1] == '(' ||
+				str[y - 1] == ')' || str[y - 1] == '{' ||
+				str[y - 1] == '}' || y == 0)
+			str[y] -= 32;
+		y++;
+	} while (str[y]);
 	return (str);
 }
 
