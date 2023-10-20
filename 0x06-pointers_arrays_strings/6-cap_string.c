@@ -9,10 +9,10 @@ char *cap_string(char *str)
 	int y;
 
 	y = 0;
-	do {
+	while (str[y])
+	{
 		while (!(str[y] >= 'a' && str[y] <= 'z'))
 			y++;
-
 		if (str[y - 1] == ' ' || str[y - 1] == '\t' ||
 				str[y - 1] == '\n' || str[y - 1] == ',' ||
 				str[y - 1] == ';' || str[y - 1] == '.' ||
@@ -20,9 +20,11 @@ char *cap_string(char *str)
 				str[y - 1] == '"' || str[y - 1] == '(' ||
 				str[y - 1] == ')' || str[y - 1] == '{' ||
 				str[y - 1] == '}' || y == 0)
+		{
 			str[y] -= 32;
+		}
 		y++;
-	} while (str[y]);
+	}
 	return (str);
 }
 
