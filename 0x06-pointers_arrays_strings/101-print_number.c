@@ -5,8 +5,9 @@
  */
 void print_number(int n)
 {
-	int y = n;
-
+	unsigned int y;
+	
+	y = n;
 	if (n < 0)
 	{
 		_putchar(45);
