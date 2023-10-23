@@ -8,23 +8,42 @@
  */
 void print_buffer(char *b, int size)
 {
-	int y, z;
+	int off = 0, odd, even, y, c;
 
-	for (y = 0; y < size; y += 10)
+	if (size <= 0)
 	{
-		printf("%08x: ", y);
-		for (z = 0; z < 10; z++)
-		{
-			if (y + z < size)
-				printf("%02x%s", b[y + z], (z % 2 == 1) ? " " : "");
-			else
-				printf(" ");
-		}
-		for (z = 0; z < 10; z++)
-		{
-			if (y + z < size)
-				printf("%c", (b[y + z] >= 32 && b[y + z] <= 126) ? b[y + z] : '.');
-		}
 		printf("\n");
+}
+while (off < size)
+{
+	odd = size - off;
+	even = (odd < 10) ? odd : 10;
+
+	printf("%08x: ", off);
+
+	for (y = 0; y < 10; y++)
+	{
+		if (y < even)
+		{
+			printf("%02x", b[off + y]);
+		}
+		else
+			printf("  ");
+		if (y % 2)
+		{
+			printf(" ");
+		}
 	}
+	for (y = 0; y < even; y++)
+	{
+		c = b[off + y];
+		if (c < 32 || c > 126)
+		{
+			c = '.';
+		}
+		printf("%c", c);
+	}
+	printf("\n");
+	off += 10;
+}
 }
