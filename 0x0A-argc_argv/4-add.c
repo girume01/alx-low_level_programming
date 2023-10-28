@@ -1,36 +1,39 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 /**
  * main - entry point of program.
  * @argc: number of command line argument.
  * @argv: array of command line argument string
- * Return: 0(on success)
+ * Return: 0(on success).
  */
 int main(int argc, char *argv[])
 {
 	int y = 0;
-	int i = 1;
-	int z;
+	int z = 1;
+	int j;
+	int number;
 
 	if (argc == 1)
 	{
 		printf("0\n");
 		return (0);
 	}
-	while (i < argc)
-	{
-		z = atoi(argv[i]);
-		if (z >= 0)
+	do {
+		j = 0;
+		while (argv[z][j] != '\0')
 		{
-			y += z;
+			if (!isdigit(argv[z][j]))
+			{
+				printf("Error\n");
+				return (1);
+			}
+			j++;
 		}
-		else
-		{
-			printf("Error\n");
-			return (1);
-		}
-		i++;
-	} while (i < argc);
+		number = atoi(argv[z]);
+		y += number;
+		z++;
+	} while (z < argc);
 	printf("%d\n", y);
 	return (0);
 }
