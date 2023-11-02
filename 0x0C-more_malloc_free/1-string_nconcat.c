@@ -12,16 +12,16 @@
  */
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-	char *helloworld;
+	char *arr;
 
-	helloworld = malloc(strlen(s1) + n + 1);
-	if (helloworld == NULL)
+	arr = malloc(strlen(s1) + n + 1);
+	if (arr == NULL)
 	{
 		return (NULL);
 	}
-	strncpy(helloworld, s1, strlen(s1));
-	strncat(helloworld, s2, n);
+	strncpy(arr, s1, strlen(s1));
+	strncat(arr, s2, n);
 	{
-	return (helloworld);
+	return (arr);
 	}
 }
