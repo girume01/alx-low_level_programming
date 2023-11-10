@@ -9,7 +9,7 @@ void print_all(const char * const format, ...)
 	va_list anumber;
 	int yz;
 	char *xy, *vall = "";
-	
+
 	yz = 0;
 	va_start(anumber, format);
 	if (format)
