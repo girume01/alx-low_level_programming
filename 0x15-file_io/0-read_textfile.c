@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "main.h"
 /**
  * read_textfile - function to read text file.
  * @filename: name of the file.
@@ -8,13 +9,13 @@
  */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	FILE *file;
+	int fd;
 	char *buffer;
-	size_t x;
-	size_t y;
+	size_t new;
+	size_t n;
 
-	file = fopen(filename, "r");
-	if (file == NULL)
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
 	{
 		return (0);
 	}
@@ -22,29 +23,17 @@ ssize_t read_textfile(const char *filename, size_t letters)
 	{
 		return (0);
 	}
-	buffer = (char *)malloc(letters + 1);
-	if (buffer == NULL)
+	buffer = malloc(sizeof(char) * (letters));
+	if (!buffer)
 	{
-		fclose(file);
 		return (0);
 	}
-	y = fread(buffer, 1, letters, file);
-	if (y == 0)
-	{
-		free(buffer);
-		fclose(file);
-		return (0);
-	}
-	buffer[y] = '\0';
-	x = fwrite(buffer, 1, y, stdout);
-	if (x != y)
-	{
-		free(buffer);
-		fclose(file);
-		return (0);
-	}
-	free(buffer);
-	fclose(file);
-	return (y);
-}
+	n = read(fd, buffer, letters);
+	new = write(STDOUT_FILENO, buffer, n);
 
+	close(fd);
+	free(buffer);
+	{
+		return (new);
+	}
+}
