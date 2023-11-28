@@ -1,39 +1,58 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#define BUFFER_SIZE 1024
-void exitw(int code, const char* message, const char* arg)
+#include "main.h"
+/**
+ * errorf - checks if the file can be opened.
+ * @ff: file from.
+ * @ft: file to.
+ * @argv: argument vector.
+ * Return: nothing will return.
+ */
+void errorf(int ff, int ft, char *argv[])
 {
-	dprintf(STDERR_FILENO, message, arg);
-	exit(code);
+	if (ff == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: can't read from file %s\n", argv[1]);
+		exit(98);
+	}
+	if  (ft == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: can't write to %s\n", argv[2]);
+		exit(99);
+	}
 }
+/**
+ * main - entry of program.
+ * @argc: number of argument.
+ * @argv: argument vector.
+ * Return: 0.
+ */
 int main(int argc, char *argv[])
 {
-	int From = open(argv[1], O_RDONLY);
-	int To = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	char buffer[BUFFER_SIZE];
-	ssize_t read1, write1;
+	int ff, ft, errc;
+	ssize_t n, nwr;
+	char buf[1024];
 
 	if (argc != 3)
-		exitw(97, "%s\n", argv[0]);
-	if (From == -1)
-		exitw(98, "%s\n", argv[1]);
-	if (To == -1)
-		exitw(99, "%s\n", argv[2]);
-	while ((read1 = read(From, buffer, BUFFER_SIZE)) > 0)
 	{
-		write1 = write(To, buffer, read1);
-		if (write1 != read1)
-			exitw(99, "%s\n", argv[2]);
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
+		exit(97);
 	}
-	if (read1 == -1)
-		exitw(98, "%s\n", argv[1]);
+	ff = open(argv[1], O_RDONLY);
+	ft = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC | O_APPEND, 0664);
+	errorf(ff, ft, argv);
 
-	if (close(From) == -1 || close(To) == -1)
-		exitw(100, "Error\n", "");
-
+	while ((n = read(ff, buf, 1024)) == 1024)
+	{
+		if (n == -1)
+			errorf(-1, 0, argv);
+		if ((nwr = write(ft, buf, n)) == -1)
+			errorf(0, -1, argv);
+	}
+	if ((errc = close(ff)) == -1 || (errc = close(ft)) == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: can't close fd %d\n", errc);
+		exit(100);
+	}
 	return (0);
 }
