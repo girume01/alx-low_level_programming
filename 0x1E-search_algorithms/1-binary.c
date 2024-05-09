@@ -1,54 +1,34 @@
 #include "search_algos.h"
-void print_array(int *array, size_t i, size_t size);
 /**
- * binary_search - binary search algorithm in a string
- * @array: list of elements
- * @size: size of the list
- * @value: target to search
- * Return: element index on success (-1) on fail
+ * binary_search - searches for a value in an int array via Binary search
+ * @array: the list to search through
+ * @size: length of (number of elements in) the array
+ * @value: the value to search for
+ * Return: the index of first value match, -1 if not present or array is NULL
  */
 int binary_search(int *array, size_t size, int value)
 {
-	size_t low = 0, high = size - 1, half = 0;
+	size_t i, midpoint, first = 0, last = size - 1;
 
-	if (array == NULL || value == 0)
+	if (array == NULL || size == 0)
 		return (-1);
 
-	print_array(array, low, size);
-	while (low < high)
+	while (first <= last)
 	{
-		half = (low + high) / 2;
-		if (array[half] < value)
-		{
-			low = half + 1;
-			print_array(array, low, high + 1);
-		}
-		else if (array[half] > value)
-		{
-			high = half - 1;
-			print_array(array, low, high + 1);
-		}
-		else
-			return (array[half]);
-	}
-	return (-1);
-}
+		printf("Searching in array: %d", array[first]);
+		for (i = first + 1; i <= last; i++)
+			printf(", %d", array[i]);
+		printf("\n");
 
-/**
- * print_array - print all elements in an array
- * @array: list of elements
- * @i: index to init
- * @size: size of the array
- */
-void print_array(int *array, size_t i, size_t size)
-{
-	printf("Searching in array: ");
-	while (i < size)
-	{
-		if (i + 1 == size)
-			printf("%d ", array[i]);
+		midpoint = (first + last) / 2;
+
+		if (value == array[midpoint])
+			return (midpoint);
+		else if (value > array[midpoint])
+			first = midpoint + 1;
 		else
-			printf("%d, ", array[i]);
-		i++;
-	} printf("\n");
+			last = midpoint - 1;
+	}
+
+	return (-1);
 }
